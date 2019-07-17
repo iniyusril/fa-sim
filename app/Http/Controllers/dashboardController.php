@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Dashboard;
+use Illuminate\Http\Request;
 
 class dashboardController extends Controller
 {
@@ -16,7 +16,7 @@ class dashboardController extends Controller
     {
         //
         $data = Dashboard::limit(1)->first();
-        return view('dashboard.index',compact('data'));
+        return view('dashboard.index', compact('data'));
     }
 
     /**
@@ -33,9 +33,11 @@ class dashboardController extends Controller
      */
     public function store(Request $request)
     {
-        $data = Dashboard::where('id',$request->id)->first();
+        $data = Dashboard::where('id', $request->id)->first();
         $data->tha = $request->tha;
         $data->semester = $request->semester;
+        $data->npm = $request->npm;
+        $data->password = md5($request->password);
         $data->save();
         return redirect()->route('dashboard')->with('alert-success', 'Berhasil Mengubah Data!');
     }
@@ -85,10 +87,11 @@ class dashboardController extends Controller
         //
     }
 
-    public function tes(){
+    public function tes()
+    {
         $data = array(
             'tha' => "20182019",
-            'semester' => 1
+            'semester' => 1,
         );
         echo json_encode($data);
     }

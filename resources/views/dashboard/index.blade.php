@@ -22,6 +22,14 @@
           <label for="exampleInputEmail2">Semester</label>
           <input class="form-control" name="semester" id="exampleInputEmail2" type="text" placeholder="contoh : 1 (UTS), 2 (UAS)" value="{{$data->semester}}">
         </div>
+        <div class="form-group">
+          <label for="exampleInputEmail2">NPM</label>
+          <input class="form-control" name="npm" id="exampleInputEmail2" type="text" placeholder="contoh : 1 (UTS), 2 (UAS)" value="{{$data->npm}}">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail2">Password</label>
+          <input class="form-control" name="password" id="exampleInputEmail2" type="password" placeholder="Masukan Password" value="{{$data->password}}">
+        </div>
     </div>
     <div class="card-footer">
       <button class="btn btn-sm btn-primary" type="submit">

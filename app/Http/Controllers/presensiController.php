@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
-class asistenController extends Controller
+class presensiController extends Controller
 {
     //
     public function index()
@@ -13,18 +13,22 @@ class asistenController extends Controller
         $token = app()->call('App\Http\Controllers\tokenController@index');
         $base_url = env('BASE_URL');
         $tha = env('THA');
-        $semester = 1;
+        $semester = 2;
+        $kode_jurusan = env('KODE_JURUSAN');
+        $jenis = env('JENIS');
         $client = new Client();
-        $response = $client->request('GET', $base_url . 'GetListAsisten', [
+        $response = $client->request('GET', $base_url . 'GetListPresensiAsistenByJurusan', [
             'query' => [
                 'token' => $token,
                 'tha' => $tha,
                 'semester' => $semester,
+                'kode_jurusan' => $kode_jurusan,
+                'jenis' => $jenis,
             ],
         ]);
         $statusCode = $response->getStatusCode();
         $body = $response->getBody()->getContents();
         $datas = json_decode($body, true);
-        return view('asisten.index', compact('datas'));
+        print_r($datas);
     }
 }

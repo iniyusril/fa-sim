@@ -63,7 +63,7 @@
         <nav class="sidebar-nav">
           <ul class="nav">
             <li class="nav-item">
-              <a class="nav-link" href="">
+              <a class="nav-link" href="{{route('dashboard_')}}">
                 <i class="nav-icon fa fa-calendar-o"></i> Dashboard</a>
             </li>
             <li class="nav-item">
@@ -71,7 +71,7 @@
                 <i class="nav-icon fa fa-calendar-o"></i> Jurusan</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="">
+              <a class="nav-link" href="{{route('matakuliah')}}">
                 <i class="nav-icon fa fa-calendar-o"></i> Matakuliah</a>
             </li>
             <li class="nav-item">

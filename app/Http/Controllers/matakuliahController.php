@@ -1,28 +1,31 @@
 <?php
-
 namespace App\Http\Controllers;
-use GuzzleHttp\Exception\GuzzleException;
+
+use App\Dashboard;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+
 class matakuliahController extends Controller
 {
     //
-    public function index(){
+    public function index()
+    {
         $token = app()->call('App\Http\Controllers\tokenController@index');
         $base_url = env('BASE_URL');
-        $tha = env('THA');
-        $semester = 2;
+        $data = Dashboard::limit(1)->first();
+        $tha = $data->tha;
+        $semester = $data->semester;
         $client = new Client();
-    	$response = $client->request('GET', $base_url.'GetListMatakuliahByTahunAkademik',[
-            'query' =>[
+        $response = $client->request('GET', $base_url . 'GetListMatakuliahByTahunAkademik', [
+            'query' => [
                 'token' => $token,
                 'tha' => $tha,
                 'semester' => $semester,
-            ]
+            ],
         ]);
-    	$statusCode = $response->getStatusCode();
+        $statusCode = $response->getStatusCode();
         $body = $response->getBody()->getContents();
-        $datas = json_decode($body,TRUE);
-        return view('matakuliah.index',compact('datas'));
+        $datas = json_decode($body, true);
+        return view('matakuliah.index', compact('datas'));
     }
 }
