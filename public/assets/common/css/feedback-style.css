@@ -1,0 +1,50 @@
+
+.thumb-content-left .col {
+    margin-bottom: 18px;
+    padding-top: 17px;
+}
+
+.img-cont {
+    width: 100%;
+    min-height: 216px;
+    overflow: hidden;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+#msform fieldset{
+    display: inline;
+}
+#msform fieldset:not(:first-of-type){
+    display: block;
+}
+.theme-green .back-bar{
+    height: 10px;
+    margin-bottom: 50px;
+}
+.theme-green .back-bar .pointer{
+    height: 19px;
+    width: 19px;
+}
+.slider-container .scale{
+    top: -45px;
+}
+.theme-green .back-bar .pointer{
+    background: #2184E1;
+    border: 2px solid #fff;
+    box-shadow: 0px 0px 4px #aaa;
+}
+.slider-container{
+    width: 100% !important;
+}
+.thumbnail img{
+    height: 216px;
+}
+
+.asisten-content {
+    padding: 5px;
+}
+
+.pointer-label {
+    font-size: 9px !important;
+}
