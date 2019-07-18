@@ -20,7 +20,14 @@ Route::get('/asisten', 'asistenController@index')->name('asisten');
 Route::get('/dashboard', 'dashboardController@index')->name('dashboard_');
 Route::post('/dashboard', 'dashboardController@store')->name('dashboard');
 Route::get('/presensi', 'presensiController@index')->name('presensi');
+Route::get('/download/{kode_jurusan}/{jenis}', 'presensiController@downloadExcel')->name('download');
+Route::get('/update-presensi/{id}/{tgl_mulai}/{tgl_selesai}/{is_aktif}','presensiController@update')->name('presensi.update');
+Route::get('/insert-presensi','presensiController@create')->name('presensi.create');
+Route::post('/store-presensi','presensiController@store')->name('presensi.store');
+Route::get('/destroy-presensi/{id}','presensiController@destroy')->name('presensi.store');
 
+
+Route::get('/input-data','inputDataController@index');
 Route::get('/tes', 'dashboardController@tes')->name('tes');
 
 Auth::routes();

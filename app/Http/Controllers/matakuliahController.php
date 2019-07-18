@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Dashboard;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use GuzzleHttp\Exception\ClientException;
 
 class matakuliahController extends Controller
 {
@@ -15,6 +16,7 @@ class matakuliahController extends Controller
         $data = Dashboard::limit(1)->first();
         $tha = $data->tha;
         $semester = $data->semester;
+        try{
         $client = new Client();
         $response = $client->request('GET', $base_url . 'GetListMatakuliahByTahunAkademik', [
             'query' => [
@@ -26,6 +28,10 @@ class matakuliahController extends Controller
         $statusCode = $response->getStatusCode();
         $body = $response->getBody()->getContents();
         $datas = json_decode($body, true);
+    }catch(ClientException $e){
+        $datas = [];
+    }
         return view('matakuliah.index', compact('datas'));
+
     }
 }
