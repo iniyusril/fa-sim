@@ -1,37 +1,31 @@
 @extends('master.app')
 @section('content')
-<div class="row">
-<div class="col-md-12">
 <div class="card">
-    <div class="card-header">
-      <strong>GRAB PRESENSI</strong></div>
-    <div class="card-body">
-        <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="kode_jurusan">Kode Jurusan</label>
-            <div class="col-md-3">
-              <select class="form-control" id="kode_jurusan" name="kode_jurusan">
-                    <option disabled>Please select</option>
-                  @foreach ($jurusan as $item)
-                    <option value="{{$item['kode_jurusan']}}">{{$item['nama_jurusan']}}</option>
-                  @endforeach
-              </select>
-            </div>
-          </div>
-        <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="jenis">Jenis</label>
-            <div class="col-md-3">
-              <select class="form-control" id="jenis" name="jenis">      
-                    <option value="uts">UTS</option>
-                    <option value="uas">UAS</option>
-              </select>
-            </div>
-          </div>
-    </div>
-    <div class="card-footer">
-      <button class="btn btn-sm btn-primary" type="submit">
-        <i class="fa fa-dot-circle-o"></i> Submit</button>
-    </div>
+  <div class="card-header">
+      <b>GRAB PRESENSI</b>
   </div>
-</div>
+  @if(Session::has('alert-success'))
+  <div class="alert alert-success">
+      <strong>{{ \Illuminate\Support\Facades\Session::get('alert-success') }}</strong>
+  </div>
+  @endif
+  <div class="card-body">
+    <table class="table table-responsive-sm table-bordered text-center" id="table-asisten">
+      <thead>
+        <tr>
+          <th>Jurusan</th>
+          <th colspan="2">Jenis</th>
+      </thead>
+      <tbody>
+        @foreach ($jurusan as $key => $data)
+            <tr>
+            <td>{{$data['nama_jurusan']}}</td>
+            <td><a href="{{$data['kode_jurusan']}}">UTS</a></td>
+            <td><a href="{{$data['kode_jurusan']}}">UAS</a></td>
+            </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
 </div>
 @endsection
