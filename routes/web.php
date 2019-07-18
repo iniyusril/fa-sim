@@ -19,7 +19,7 @@ Route::get('/jurusan', 'jurusanController@index')->name('jurusan');
 Route::get('/asisten', 'asistenController@index')->name('asisten');
 Route::get('/dashboard', 'dashboardController@index')->name('dashboard_');
 Route::post('/dashboard', 'dashboardController@store')->name('dashboard');
-Route::get('/presensi', 'presensiController@index');
+Route::get('/presensi', 'presensiController@index')->name('presensi');
 
 Route::get('/tes', 'dashboardController@tes')->name('tes');
 

@@ -79,7 +79,7 @@
                 <i class="nav-icon fa fa-calendar-o"></i> Asisten</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="">
+              <a class="nav-link" href="{{route('presensi')}}">
                 <i class="nav-icon fa fa-calendar-o"></i> Presensi</a>
             </li>
             <li class="nav-item">
