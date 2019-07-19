@@ -48,8 +48,8 @@
           <span class="badge badge-danger">Banned</span>
           @endif  
           </td>   
-          <td><a href=""><i class="fa fa-pencil"></i></a></td>
-          <td><a href="{{url('destroy-presensi'.'/'.$data['id'])}}"><i class="fa fa-trash"></i></a></td>
+          <td><a href="" style="color:#ffc107"><i class="fa fa-pencil"></i></a></td>
+          <td><a href="{{ route('presensi.destroy', [$data['id']]) }}" style="color:#f86c6b"><i class="fa fa-trash"></i></a></td>
         </tr>
         @endforeach
       </tbody>
@@ -76,8 +76,8 @@
           @foreach ($jurusan as $key => $data)
               <tr>
               <td>{{$data['nama_jurusan']}}</td>
-              <td><a href="{{url('download'.'/'.$data['kode_jurusan'].'/'.'uts')}}">UTS</a></td>
-              <td><a href="{{url('download'.'/'.$data['kode_jurusan'].'/'.'uas')}}">UAS</a></td>
+              <td><a href="{{route('download',[$data['kode_jurusan'],'uts'])}}">UTS</a></td>
+              <td><a href="{{route('download',[$data['kode_jurusan'],'uas'])}}">UAS</a></td>
               </tr>
           @endforeach
         </tbody>

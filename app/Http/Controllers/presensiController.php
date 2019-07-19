@@ -29,7 +29,7 @@ class presensiController extends Controller
             return [];
         }
 
-        echo $body;
+        return redirect()->route('presensi')->with('alert-success', 'Berhasil Menghapus data!');
     }
     public function store(Request $request){
 
@@ -54,7 +54,7 @@ class presensiController extends Controller
             return [];
         }
 
-        echo $body;
+        return redirect()->route('presensi')->with('alert-success', 'Berhasil Menambah Data!');
     }
     public function index()
     {

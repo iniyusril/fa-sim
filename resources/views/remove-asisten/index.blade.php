@@ -1,15 +1,15 @@
 @extends('master.app')
 @section('content')
 @if(Session::has('alert-success'))
-<div class="alert alert-success">
+<div class="alert alert-danger">
     <strong>{{ \Illuminate\Support\Facades\Session::get('alert-success') }}</strong>
 </div>
 @endif
 <div class="card">
         <div class="card-header">Input Single</div>
         <div class="card-body">
-          <form class="form-inline" action="{{route('input.single')}}" method="post">
-            @csrf
+          <form class="form-inline" action="{{route('remove.single')}}" method="post">
+              @csrf
             <div class="form-group">
               <div class="input-group">
                 <div class="input-group-prepend">
@@ -35,7 +35,7 @@
 <div class="card">
         <div class="card-header">Input Collection</div>
         <div class="card-body">
-                <form action="{{route('input.collection')}}" method="post" enctype="multipart/form-data">
+                <form action="{{route('remove.collection')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <label> Please Select File (CSV Comma Delimeted only):</label>
                     <input type="file" name="file"/>

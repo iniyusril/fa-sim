@@ -24,11 +24,16 @@ Route::get('/download/{kode_jurusan}/{jenis}', 'presensiController@downloadExcel
 Route::get('/update-presensi/{id}/{tgl_mulai}/{tgl_selesai}/{is_aktif}','presensiController@update')->name('presensi.update');
 Route::get('/insert-presensi','presensiController@create')->name('presensi.create');
 Route::post('/store-presensi','presensiController@store')->name('presensi.store');
-Route::get('/destroy-presensi/{id}','presensiController@destroy')->name('presensi.store');
+Route::get('/destroy-presensi/{id}','presensiController@destroy')->name('presensi.destroy');
 
-
-Route::get('/input-data','inputDataController@index');
-Route::get('/tes', 'dashboardController@tes')->name('tes');
+//insert data asisten
+Route::get('/input-data','inputDataController@index')->name('input');
+Route::post('/input-single','inputDataController@input_single')->name('input.single');
+Route::post('/input-collection','inputDataController@csvfileupload')->name('input.collection');
+//remove data asisten
+Route::get('/remove-data','removeDataController@index')->name('remove');
+Route::post('/remove-single','removeDataController@remove_single')->name('remove.single');
+Route::post('/remove-collection','removeDataController@csvfileupload')->name('remove.collection');
 
 Auth::routes();
 

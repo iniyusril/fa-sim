@@ -1,5 +1,10 @@
 @extends('master.app')
 @section('content')
+@if(Session::has('alert-success'))
+<div class="alert alert-warning col-sm-6">
+    <strong>{{ \Illuminate\Support\Facades\Session::get('alert-success') }}</strong>
+</div>
+@endif
 <div class="row">
     <div class="col-sm-6">
 <div class="card">
@@ -9,11 +14,6 @@
       <strong>Setting</strong> Form</div>
     <div class="card-body">
           <input type="hidden" name="id" value="{{$data->id}}">
-          @if(Session::has('alert-success'))
-          <div class="alert alert-success">
-              <strong>{{ \Illuminate\Support\Facades\Session::get('alert-success') }}</strong>
-          </div>
-          @endif
         <div class="form-group">
           <label for="exampleInputName2">Tahun Ajaran</label>
           <input class="form-control" name="tha" id="exampleInputName2" type="text" placeholder="contoh : 2019/2020" value="{{$data->tha}}">

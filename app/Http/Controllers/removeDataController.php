@@ -6,14 +6,14 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use GuzzleHttp\Exception\ClientException;
 
-class inputDataController extends Controller
+class removeDataController extends Controller
 {
     //
     public function index()
     {
-        return view('input-asisten.index');
+        return view('remove-asisten.index');
     }
-    public function input_single(Request $request){
+    public function remove_single(Request $request){
         $token = app()->call('App\Http\Controllers\tokenController@index');
         $base_url = env('BASE_URL');
         $data = Dashboard::limit(1)->first();
@@ -27,14 +27,14 @@ class inputDataController extends Controller
         );
         try{
             $client = new Client();
-            $response = $client->post($base_url.'SaveAsisten?token='.$token, [
+            $response = $client->post($base_url.'DeleteAsisten?token='.$token, [
                 'json' => $data
             ]);
             $body = $response->getBody()->getContents();
-            return redirect()->route('input')->with('alert-success', 'Berhasil Menambah Data!');
+            return redirect()->route('remove')->with('alert-success', 'Berhasil Menghapus Data!');
         }
         catch(ClientException $e){
-            return redirect()->route('input')->with('alert-success', 'Gagal Menambah Data!');
+            return redirect()->route('remove')->with('alert-success', 'Gagal Menghapus Data!');
         }
     }
     public function csvfileupload(Request $request)
@@ -61,14 +61,14 @@ class inputDataController extends Controller
         fclose($handle);
         try{
             $client = new Client();
-            $response = $client->post($base_url.'SaveAsistens?token='.$token, [
+            $response = $client->post($base_url.'DeleteAsistens?token='.$token, [
                 'json' => $complete
             ]);
             $body = $response->getBody()->getContents();
-            return redirect()->route('input')->with('alert-success', 'Berhasil Menambah Data!');
+            return redirect()->route('remove')->with('alert-success', 'Berhasil Menghapus Data!');
         }
         catch(ClientException $e){
-            return redirect()->route('input')->with('alert-success', 'Gagal Menambah Data!');
+            return redirect()->route('remove')->with('alert-success', 'Gagal Menghapus Data!');
         }
     }
 }

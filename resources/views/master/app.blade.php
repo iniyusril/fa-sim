@@ -83,11 +83,11 @@
                 <i class="nav-icon fa fa-calendar-o"></i> Presensi</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="">
+              <a class="nav-link" href="{{route('input')}}">
                 <i class="nav-icon fa fa-calendar-o"></i> Input Asisten</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="">
+              <a class="nav-link" href="{{route('remove')}}">
                 <i class="nav-icon fa fa-calendar-o"></i> Remove Asisten</a>
             </li>
             
