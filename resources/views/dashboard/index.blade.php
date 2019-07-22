@@ -5,7 +5,7 @@
     <strong>{{ \Illuminate\Support\Facades\Session::get('alert-success') }}</strong>
 </div>
 @endif
-<div class="row">
+<div class="    ">
     <div class="col-sm-6">
 <div class="card">
     <form class="form-horizontal" action="{{route('dashboard')}}" method="post">
@@ -18,14 +18,9 @@
           <label for="exampleInputName2">Tahun Ajaran</label>
           <input class="form-control" name="tha" id="exampleInputName2" type="text" placeholder="contoh : 2019/2020" value="{{$data->tha}}">
         </div>
-        <div class="form-group row">
-          <label class="col-md-2 col-form-label" for="semester">Semester</label>
-          <div class="col-md-12">
-            <select class="form-control" id="semester" name="semester">
-              <option value="1">Ganjil</option>
-              <option value="2">Genap</option>
-            </select>
-          </div>
+        <div class="form-group">
+          <label for="semester">Semester</label>
+            {{ Form::select('semester', array(1 => 'Ganjil', 2 => 'Genap'), $data->semester,['class' => 'form-control'])}}
         </div>
         <div class="form-group">
           <label for="exampleInputEmail2">NPM</label>
