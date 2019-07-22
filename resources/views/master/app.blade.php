@@ -16,7 +16,9 @@
     <meta name="author" content="Łukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
     <link rel="stylesheet" href="{{asset('css/jquery.dataTables.min.css')}}">
-    <title>CoreUI Free Bootstrap Admin Template</title>
+    <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}">
+
+    <title>FA SYSTEM INFORMATION MANAGEMENT</title>
     <!-- Icons-->
     <link href="{{asset('vendors/@coreui/icons/css/coreui-icons.min.css')}}" rel="stylesheet">
     <link href="{{asset('vendors/flag-icon-css/css/flag-icon.min.css')}}" rel="stylesheet">

@@ -23,7 +23,7 @@
           <th>Tanggal Mulai</th>
           <th>Tanggal Selesai</th>
           <th>Aktif</th>
-          <th></th>
+          {{-- <th></th> --}}
           <th></th>
       </thead>
       <tbody>
@@ -48,7 +48,7 @@
           <span class="badge badge-danger">Banned</span>
           @endif  
           </td>   
-          <td><a href="" style="color:#ffc107"><i class="fa fa-pencil"></i></a></td>
+          {{-- <td><a href="" style="color:#ffc107"><i class="fa fa-pencil"></i></a></td> --}}
           <td><a href="{{ route('presensi.destroy', [$data['id']]) }}" style="color:#f86c6b"><i class="fa fa-trash"></i></a></td>
         </tr>
         @endforeach
@@ -66,11 +66,13 @@
     </div>
     @endif
     <div class="card-body">
-      <table class="table table-responsive-sm table-bordered text-center" id="table-asisten">
+      <table class="table table-responsive-sm table-bordered text-center" id="table-presensi">
         <thead>
           <tr>
             <th>Jurusan</th>
-            <th colspan="2">Jenis</th>
+            <th></th>
+            <th></th>
+          </tr>
         </thead>
         <tbody>
           @foreach ($jurusan as $key => $data)
@@ -85,3 +87,12 @@
     </div>
   </div>
 @endsection
+@push('scripts')
+<script>
+$(document).ready(function() {
+    $('#table-presensi').DataTable({
+      "pageLength": 25
+    });
+} );
+</script>
+@endpush

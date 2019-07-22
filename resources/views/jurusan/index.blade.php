@@ -2,7 +2,7 @@
 @section('content')
 <div class="card">
     <div class="card-header">
-        Jurusan
+        <b>Jurusan</b>
     </div>
     @if(Session::has('alert-success'))
     <div class="alert alert-success">

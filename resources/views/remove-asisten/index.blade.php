@@ -6,7 +6,7 @@
 </div>
 @endif
 <div class="card">
-        <div class="card-header">Input Single</div>
+        <div class="card-header"><b>Input Single</b></div>
         <div class="card-body">
           <form class="form-inline" action="{{route('remove.single')}}" method="post">
               @csrf
@@ -33,7 +33,7 @@
         </div>
 </div>
 <div class="card">
-        <div class="card-header">Input Collection</div>
+        <div class="card-header"><b>Input Collection</b></div>
         <div class="card-body">
                 <form action="{{route('remove.collection')}}" method="post" enctype="multipart/form-data">
                     @csrf

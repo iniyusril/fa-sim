@@ -18,17 +18,22 @@
           <label for="exampleInputName2">Tahun Ajaran</label>
           <input class="form-control" name="tha" id="exampleInputName2" type="text" placeholder="contoh : 2019/2020" value="{{$data->tha}}">
         </div>
-        <div class="form-group">
-          <label for="exampleInputEmail2">Semester</label>
-          <input class="form-control" name="semester" id="exampleInputEmail2" type="text" placeholder="contoh : 1 (UTS), 2 (UAS)" value="{{$data->semester}}">
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label" for="semester">Semester</label>
+          <div class="col-md-12">
+            <select class="form-control" id="semester" name="semester">
+              <option value="1">Ganjil</option>
+              <option value="2">Genap</option>
+            </select>
+          </div>
         </div>
         <div class="form-group">
           <label for="exampleInputEmail2">NPM</label>
-          <input class="form-control" name="npm" id="exampleInputEmail2" type="text" placeholder="contoh : 1 (UTS), 2 (UAS)" value="{{$data->npm}}">
+          <input class="form-control" name="npm" id="exampleInputEmail2" type="text" placeholder="masukan nim pengguna" value="{{$data->npm}}">
         </div>
         <div class="form-group">
           <label for="exampleInputEmail2">Password</label>
-          <input class="form-control" name="password" id="exampleInputEmail2" type="password" placeholder="Masukan Password" value="{{$data->password}}">
+          <input class="form-control" name="password" id="exampleInputEmail2" type="password" placeholder="Masukan Password Amikom" value="{{$data->password}}">
         </div>
     </div>
     <div class="card-footer">
