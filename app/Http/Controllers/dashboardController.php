@@ -37,7 +37,7 @@ class dashboardController extends Controller
         $data->tha = $request->tha;
         $data->semester = $request->semester;
         $data->npm = $request->npm;
-        $data->password = md5($request->password);
+        $data->password = $request->password;
         $data->save();
         return redirect()->route('dashboard')->with('alert-success', 'Berhasil Mengubah Data!');
     }

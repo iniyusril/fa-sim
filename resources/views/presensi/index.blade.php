@@ -12,6 +12,11 @@
       <strong>{{ \Illuminate\Support\Facades\Session::get('alert-success') }}</strong>
   </div>
   @endif
+  @if(Session::has('alert-danger'))
+  <div class="alert alert-danger">
+      <strong>{{ \Illuminate\Support\Facades\Session::get('alert-danger') }}</strong>
+  </div>
+  @endif
   <div class="card-body">
     <table class="table table-responsive-sm  text-center" id="table-asisten">
       <thead>

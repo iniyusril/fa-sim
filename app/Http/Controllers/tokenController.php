@@ -12,7 +12,7 @@ class tokenController extends Controller
     {
         $data = Dashboard::limit(1)->first();
         $nim = $data->npm;
-        $pass = $data->password;
+        $pass = md5($data->password);
         $base_url = env('BASE_URL');
         $client = new Client();
         $response = $client->request('GET', $base_url . 'GetToken?npm=' . $nim . '&password=' . $pass);

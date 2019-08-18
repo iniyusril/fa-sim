@@ -99,7 +99,7 @@
       </div>
       <main class="main">
         <!-- Breadcrumb-->
-        <div class="container-fluid" style="margin-top:20px">
+        <div class="container-fluid" style="margin-top:2%">
           <div class="animated fadeIn">
               @yield('content')
           </div>
