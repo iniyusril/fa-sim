@@ -99,9 +99,11 @@
       </div>
       <main class="main">
         <!-- Breadcrumb-->
-        <div class="container-fluid" style="margin-top:2%">
+        <div class="container-fluid">
           <div class="animated fadeIn">
+            <div class="mt-3">
               @yield('content')
+            </div>
           </div>
         </div>
       </main>
