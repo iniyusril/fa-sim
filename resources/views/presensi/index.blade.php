@@ -70,6 +70,11 @@
         <strong>{{ \Illuminate\Support\Facades\Session::get('alert-success') }}</strong>
     </div>
     @endif
+    @if(Session::has('alert-danger-presensi'))
+    <div class="alert alert-danger">
+        <strong>{{ \Illuminate\Support\Facades\Session::get('alert-danger-presensi') }}</strong>
+    </div>
+    @endif
     <div class="card-body">
       <table class="table table-responsive-sm table-bordered text-center" id="table-presensi">
         <thead>

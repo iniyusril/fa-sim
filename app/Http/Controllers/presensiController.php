@@ -95,7 +95,7 @@ class presensiController extends Controller
             $datas = json_decode($body, true);
             return $datas;
         } catch (ClientException $e) {
-            return $e;
+            return redirect()->route('presensi')->with('alert-danger-presensi', 'Gagal Mendapatkan Data, Data yang di grab tidak ada !');
         }
     }
     public function downloadExcel($kode_jurusan, $jenis)
@@ -110,16 +110,13 @@ class presensiController extends Controller
                 });
             })->download('xls');
         } catch (ClientException $e) {
-            return;
+            return redirect()->route('presensi')->with('alert-danger-presensi', 'Gagal Mendapatkan Data, Data yang di grab tidak ada !');
         }
 
     }
 
     public function get_presensi($kode_jurusan, $jenis)
     {
-        $x = Dashboard::limit(1)->first();
-        $tha = $x->tha;
-        $semester = $x->semester;
         $token = app()->call('App\Http\Controllers\tokenController@index');
         $base_url = env('BASE_URL');
         $data = Dashboard::limit(1)->first();
