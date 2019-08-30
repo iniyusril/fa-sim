@@ -60,15 +60,23 @@ class inputDataController extends Controller
         
         fclose($handle);
         try{
-            $client = new Client();
+            $client = new Client(['http_errors' => false]);
             $response = $client->post($base_url.'SaveAsistens?token='.$token, [
                 'json' => $complete
             ]);
             $body = $response->getBody()->getContents();
-            return redirect()->route('input')->with('alert-success', 'Berhasil Menambah Data!');
+            // return redirect()->route('input')->with('alert-success', 'Berhasil Menambah Data!');
         }
         catch(ClientException $e){
-            return redirect()->route('input')->with('alert-success', 'Gagal Menambah Data!');
+            $response = $client->post($base_url.'DeleteAsistens?token='.$token, [
+                'json' => $complete
+            ]);
+            $body = $response->getBody()->getContents();
+            //return redirect()->route('input')->with('alert-success', 'Gagal Menambah Data!');
+        }
+        finally{
+            $data = json_decode($body,true);
+            return redirect()->route('input')->with('alert-success', $data['Message']);
         }
     }
 }

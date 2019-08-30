@@ -59,16 +59,35 @@ class removeDataController extends Controller
         }
         
         fclose($handle);
+        // try{
+        //     $client = new Client();
+        //     $response = $client->post($base_url.'DeleteAsistens?token='.$token, [
+        //         'json' => $complete
+        //     ]);
+        //     $body = $response->getBody()->getContents();
+        //     return redirect()->route('remove')->with('alert-success', 'Berhasil Menghapus Data!');
+        // }
+        // catch(ClientException $e){
+        //     return redirect()->route('remove')->with('alert-success', 'Gagal Menghapus Data!');
+        // }
         try{
-            $client = new Client();
+            $client = new Client(['http_errors' => false]);
             $response = $client->post($base_url.'DeleteAsistens?token='.$token, [
                 'json' => $complete
             ]);
             $body = $response->getBody()->getContents();
-            return redirect()->route('remove')->with('alert-success', 'Berhasil Menghapus Data!');
+            // return redirect()->route('input')->with('alert-success', 'Berhasil Menambah Data!');
         }
         catch(ClientException $e){
-            return redirect()->route('remove')->with('alert-success', 'Gagal Menghapus Data!');
+            $response = $client->post($base_url.'SaveAsistens?token='.$token, [
+                'json' => $complete
+            ]);
+            $body = $response->getBody()->getContents();
+            //return redirect()->route('input')->with('alert-success', 'Gagal Menambah Data!');
+        }
+        finally{
+            $data = json_decode($body,true);
+            return redirect()->route('input')->with('alert-success', $data['Message']);
         }
     }
 }
