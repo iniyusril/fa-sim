@@ -12,7 +12,7 @@
  */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('dashboard');
 });
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/matakuliah', 'matakuliahController@index')->name('matakuliah');
@@ -40,4 +40,6 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', function () {
+    return redirect()->route('dashboard');
+})->name('home');

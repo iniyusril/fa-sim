@@ -35,7 +35,9 @@
 @push('scripts')
 <script>
 $(document).ready(function() {
-    $('#table-asisten').DataTable();
+    $('#table-asisten').DataTable({
+      "lengthMenu": [[50, 100, 200, -1], [50, 100, 200, "All"]]
+    });
 } );
 </script>
 @endpush
