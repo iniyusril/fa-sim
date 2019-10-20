@@ -3,7 +3,7 @@
 <div class="card">
         <div class="card-header">
           <strong>Normal</strong> Form</div>
-          <form action="{{route('presensi.update')}}" method="post">
+          <form action="{{route('presensi.updt')}}" method="post">
             @csrf
         <div class="card-body">
             <input type="hidden" name="id" value="{{$id}}">
