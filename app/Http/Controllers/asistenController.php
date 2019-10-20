@@ -6,7 +6,7 @@ use App\Dashboard;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\Request;
-
+use Excel;
 class asistenController extends Controller
 {
     //
@@ -58,7 +58,7 @@ class asistenController extends Controller
         }
         return $datas;
     }
-    public function downloadExcel($kode_jurusan, $jenis)
+    public function downloadExcel()
     {
         //$data = Item::get()->toArray();
         $x = Dashboard::limit(1)->first();

@@ -10,6 +10,9 @@
     </div>
     @endif
     <div class="card-body">
+    <div class="float-left">
+        <a href="{{route('download.jurusan')}}">Download</a>
+      </div>
       <table class="table table-responsive-sm ui celled table text-center" id="table-jurusan">
         <thead>
           <tr>
