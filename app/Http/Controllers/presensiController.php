@@ -30,8 +30,9 @@ class presensiController extends Controller
 
         return redirect()->route('presensi')->with('alert-success', 'Berhasil Menghapus data!');
     }
-    public function edit($id,$tanggal_mulai,$tanggal_selesai,$is_aktif){
-        return view('presensi.form-update',compact('id','tanggal_mulai','tanggal_selesai','is_aktif'));
+    public function edit($id, $tanggal_mulai, $tanggal_selesai, $is_aktif)
+    {
+        return view('presensi.form-update', compact('id', 'tanggal_mulai', 'tanggal_selesai', 'is_aktif'));
     }
     public function store(Request $request)
     {
@@ -90,10 +91,6 @@ class presensiController extends Controller
         $jurusan = app()->call('App\Http\Controllers\jurusanController@get_jurusan');
         $tanggal = $this->get_tanggal_presensi();
         return view('presensi.index', compact('jurusan', 'tanggal'));
-    }
-    public function update($id, $tgl_mulai, $tgl_selesai, $is_aktif)
-    {
-        return view('presensi.update', compact('id', 'tgl_mulai', 'tgl_selesai', 'is_aktif'));
     }
     public function create()
     {
