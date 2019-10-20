@@ -89,11 +89,16 @@ class presensiController extends Controller
                     'tha' => $tha,
                     'semester' => $semester,
                 ],
+                'http_errors' => false,
             ]);
             $statusCode = $response->getStatusCode();
-            $body = $response->getBody()->getContents();
-            $datas = json_decode($body, true);
-            return $datas;
+            if ($statusCode == 404) {
+                return [];
+            } else {
+                $body = $response->getBody()->getContents();
+                $datas = json_decode($body, true);
+                return $datas;
+            }
         } catch (ClientException $e) {
             return redirect()->route('presensi')->with('alert-danger-presensi', 'Gagal Mendapatkan Data, Data yang di grab tidak ada !');
         }
