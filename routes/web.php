@@ -21,6 +21,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', 'dashboardController@index')->name('dashboard_');
     Route::post('/dashboard', 'dashboardController@store')->name('dashboard');
     Route::get('/presensi', 'presensiController@index')->name('presensi');
+    Route::get('/presensi/edit/{id}/{tanggal_mulai}/{tanggal_selesai/{is_aktif}', 'presensiController@edit')->name('presensi.edit');
+    Route::get('/presensi/update', 'presensiController@update')->name('presensi.update');
     Route::get('/download/{kode_jurusan}/{jenis}', 'presensiController@downloadExcel')->name('download');
     Route::get('/download/matakuliah', 'matakuliahController@downloadExcel')->name('download.matakuliah');
     Route::get('/download/asisten', 'asistenController@downloadExcel')->name('download.asisten');

@@ -34,26 +34,26 @@
       <tbody>
         @foreach ($tanggal as $key => $data)
         <tr>
-          <td>{{$data['id']}}</td>      
-          <td>{{$data['thn_ajaran']}}</td>      
+          <td>{{$data['id']}}</td>
+          <td>{{$data['thn_ajaran']}}</td>
           <td>
           @if ($data['semester']==1)
               Ganjil
           @else
               Genap
           @endif
-          </td>      
-          <td>{{$data['jenis']}}</td>      
-          <td>{{$data['tanggal_mulai']}}</td>      
-          <td>{{$data['tanggal_selesai']}}</td>   
-          <td>  
+          </td>
+          <td>{{$data['jenis']}}</td>
+          <td>{{$data['tanggal_mulai']}}</td>
+          <td>{{$data['tanggal_selesai']}}</td>
+          <td>
           @if ($data['is_aktif'])
           <span class="badge badge-success">Active</span>
           @else
           <span class="badge badge-danger">Banned</span>
-          @endif  
-          </td>   
-          {{-- <td><a href="" style="color:#ffc107"><i class="fa fa-pencil"></i></a></td> --}}
+          @endif
+          </td>
+          <td><a href="{{route('presensi.edit',[$data['id'],$data['tanggal_mulai'],$data['tanggal_selesai'],$data['is_aktif']])}}" style="color:#ffc107"><i class="fa fa-pencil"></i></a></td>
           <td><a href="{{ route('presensi.destroy', [$data['id']]) }}" style="color:#f86c6b"><i class="fa fa-trash"></i></a></td>
         </tr>
         @endforeach

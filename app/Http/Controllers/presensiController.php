@@ -30,6 +30,9 @@ class presensiController extends Controller
 
         return redirect()->route('presensi')->with('alert-success', 'Berhasil Menghapus data!');
     }
+    public function edit($id,$tanggal_mulai,$tanggal_selesai,$is_aktif){
+        return view('presensi.form-update',compact('id','tanggal_mulai','tanggal_selesai','is_aktif'));
+    }
     public function store(Request $request)
     {
 
@@ -56,6 +59,31 @@ class presensiController extends Controller
         }
 
         return redirect()->route('presensi')->with('alert-success', 'Berhasil Menambah Data!');
+    }
+    public function update(Request $request)
+    {
+
+        $token = app()->call('App\Http\Controllers\tokenController@index');
+        $base_url = env('BASE_URL');
+        $data = array(
+            "id" => $request->id,
+            "tanggal_mulai" => $request->tgl_awal,
+            "tanggal_selesai" => $request->tgl_selesai,
+            "is_aktif" => (int) $request->is_aktif,
+        );
+        try {
+            $client = new Client();
+            $response = $client->post($base_url . 'UpdateTanggalPresensi?token=' . $token, [
+                'json' => $data,
+            ]);
+            $body = $response->getBody()->getContents();
+        } catch (ClientException $e) {
+            echo $e;
+            return redirect()->route('presensi')->with('alert-danger', 'Gagal Menambah Data!');
+
+        }
+
+        return redirect()->route('presensi')->with('alert-success', 'Berhasil Merubah Data!');
     }
     public function index()
     {
@@ -92,7 +120,7 @@ class presensiController extends Controller
                 'http_errors' => false,
             ]);
             $statusCode = $response->getStatusCode();
-            if ($statusCode == 404) {
+            if ($statusCode >= 400) {
                 return [];
             } else {
                 $body = $response->getBody()->getContents();
