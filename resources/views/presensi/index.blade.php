@@ -51,6 +51,9 @@
           <span class="badge badge-success">Active</span>
           @else
           <span class="badge badge-danger">Banned</span>
+          @php
+          $data['is_aktif'] = 0
+          @endphp
           @endif
           </td>
           <td><a href="{{route('presensi.edit',[$data['id'],$data['tanggal_mulai'],$data['tanggal_selesai'],$data['is_aktif']])}}" style="color:#ffc107"><i class="fa fa-pencil"></i></a></td>
