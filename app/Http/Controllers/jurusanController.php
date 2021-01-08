@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Excel;
 use App\Dashboard;
+use App\Http\Controllers\Http;
+
 class jurusanController extends Controller
 {
-    //
+    public $client;
+    
+    function __construct() {
+        $token = app()->call('App\Http\Controllers\tokenController@index');
+        $http = new Http($token);
+        $this->client = $http->client;
+    }   
     public function downloadExcel()
     {
         //$data = Item::get()->toArray();
@@ -29,13 +36,7 @@ class jurusanController extends Controller
     public function index()
     {
         $token = app()->call('App\Http\Controllers\tokenController@index');
-        $base_url = env('BASE_URL');
-        $client = new Client();
-        $response = $client->request('GET', $base_url . 'GetListJurusan', [
-            'query' => [
-                'token' => $token,
-            ],
-        ]);
+        $response = $this->client->get('GetListJurusan');
         $statusCode = $response->getStatusCode();
         $body = $response->getBody()->getContents();
         $datas = json_decode($body, true);
@@ -44,13 +45,7 @@ class jurusanController extends Controller
     public function get_jurusan()
     {
         $token = app()->call('App\Http\Controllers\tokenController@index');
-        $base_url = env('BASE_URL');
-        $client = new Client();
-        $response = $client->request('GET', $base_url . 'GetListJurusan', [
-            'query' => [
-                'token' => $token,
-            ],
-        ]);
+        $response = $this->client->get('GetListJurusan');
         $statusCode = $response->getStatusCode();
         $body = $response->getBody()->getContents();
         $datas = json_decode($body, true);

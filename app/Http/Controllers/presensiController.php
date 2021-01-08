@@ -4,23 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Dashboard;
 use Excel;
-use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Http;
 
 class presensiController extends Controller
 {
-    //
+    
+    private $client;
+    
+    function __construct() {
+        $token= app()->call('App\Http\Controllers\tokenController@index');
+        $this->token = $token;
+        $http = new Http($token);
+        $this->client = $http->client;
+    }  
+
     public function destroy($id)
     {
-        $token = app()->call('App\Http\Controllers\tokenController@index');
-        $base_url = env('BASE_URL');
         $data = array(
             "id" => $id,
         );
         try {
-            $client = new Client();
-            $response = $client->post($base_url . 'DeleteTanggalPresensi?token=' . $token, [
+            $response = $this->client->post('DeleteTanggalPresensi', [
                 'json' => $data,
             ]);
             $body = $response->getBody()->getContents();
@@ -36,9 +42,6 @@ class presensiController extends Controller
     }
     public function store(Request $request)
     {
-
-        $token = app()->call('App\Http\Controllers\tokenController@index');
-        $base_url = env('BASE_URL');
         $data = array(
             "thn_ajaran" => $request->thn_ajaran,
             "semester" => (int) $request->semester,
@@ -48,8 +51,7 @@ class presensiController extends Controller
             "is_aktif" => (int) $request->is_aktif,
         );
         try {
-            $client = new Client();
-            $response = $client->post($base_url . 'SaveTanggalPresensi?token=' . $token, [
+            $response = $this->client->post('SaveTanggalPresensi', [
                 'json' => $data,
             ]);
             $body = $response->getBody()->getContents();
@@ -63,9 +65,6 @@ class presensiController extends Controller
     }
     public function update(Request $request)
     {
-
-        $token = app()->call('App\Http\Controllers\tokenController@index');
-        $base_url = env('BASE_URL');
         $data = array(
             "id" => $request->id,
             "tanggal_mulai" => $request->tgl_awal,
@@ -73,8 +72,7 @@ class presensiController extends Controller
             "is_aktif" => (int) $request->is_aktif,
         );
         try {
-            $client = new Client();
-            $response = $client->post($base_url . 'UpdateTanggalPresensi?token=' . $token, [
+            $response = $this->client->post('UpdateTanggalPresensi' , [
                 'json' => $data,
             ]);
             $body = $response->getBody()->getContents();
@@ -102,15 +100,12 @@ class presensiController extends Controller
         $tha = $x->tha;
         $semester = $x->semester;
         $token = app()->call('App\Http\Controllers\tokenController@index');
-        $base_url = env('BASE_URL');
         $data = Dashboard::limit(1)->first();
         $tha = $data->tha;
         $semester = $data->semester;
         try {
-            $client = new Client();
-            $response = $client->request('GET', $base_url . 'GetListTanggalPresensi', [
+            $response = $this->client->get('GetListTanggalPresensi', [
                 'query' => [
-                    'token' => $token,
                     'tha' => $tha,
                     'semester' => $semester,
                 ],
@@ -147,17 +142,13 @@ class presensiController extends Controller
 
     public function get_presensi($kode_jurusan, $jenis)
     {
-        $token = app()->call('App\Http\Controllers\tokenController@index');
-        $base_url = env('BASE_URL');
         $data = Dashboard::limit(1)->first();
         $tha = $data->tha;
         $semester = $data->semester;
         $kode_jurusan = $kode_jurusan;
         $_jenis = $jenis;
-        $client = new Client();
-        $response = $client->request('GET', $base_url . 'GetListPresensiAsistenByJurusan', [
+        $response = $this->client->request('GetListPresensiAsistenByJurusan', [
             'query' => [
-                'token' => $token,
                 'tha' => $tha,
                 'semester' => $semester,
                 'kode_jurusan' => $kode_jurusan,

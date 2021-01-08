@@ -5,17 +5,25 @@ use App\Dashboard;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use GuzzleHttp\Exception\ClientException;
+use App\Http\Controllers\Http;
 
 class removeDataController extends Controller
 {
-    //
+    
+    private $client;
+    
+    function __construct() {
+        $token= app()->call('App\Http\Controllers\tokenController@index');
+        $this->token = $token;
+        $http = new Http($token);
+        $this->client = $http->client;
+    }  
+
     public function index()
     {
         return view('remove-asisten.index');
     }
     public function remove_single(Request $request){
-        $token = app()->call('App\Http\Controllers\tokenController@index');
-        $base_url = env('BASE_URL');
         $data = Dashboard::limit(1)->first();
         $tha = $data->tha;
         $semester = $data->semester;
@@ -26,8 +34,7 @@ class removeDataController extends Controller
             "kode_mkl"=>$request->kode_matakuliah
         );
         try{
-            $client = new Client();
-            $response = $client->post($base_url.'DeleteAsisten?token='.$token, [
+            $response = $this->client->post('DeleteAsisten', [
                 'json' => $data
             ]);
             $body = $response->getBody()->getContents();
@@ -39,8 +46,6 @@ class removeDataController extends Controller
     }
     public function csvfileupload(Request $request)
     {
-        $token = app()->call('App\Http\Controllers\tokenController@index');
-        $base_url = env('BASE_URL');    
         $file = $request->file('file');
         $data = Dashboard::limit(1)->first();
         $tha = $data->tha;
@@ -71,15 +76,14 @@ class removeDataController extends Controller
         //     return redirect()->route('remove')->with('alert-success', 'Gagal Menghapus Data!');
         // }
         try{
-            $client = new Client(['http_errors' => false]);
-            $response = $client->post($base_url.'DeleteAsistens?token='.$token, [
+            $response = $this->client->post('DeleteAsistens', [
                 'json' => $complete
             ]);
             $body = $response->getBody()->getContents();
             // return redirect()->route('input')->with('alert-success', 'Berhasil Menambah Data!');
         }
         catch(ClientException $e){
-            $response = $client->post($base_url.'SaveAsistens?token='.$token, [
+            $response = $this->client->post('SaveAsistens', [
                 'json' => $complete
             ]);
             $body = $response->getBody()->getContents();

@@ -2,28 +2,33 @@
 namespace App\Http\Controllers;
 
 use App\Dashboard;
-use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-use Illuminate\Http\Request;
 use Excel;
+use App\Http\Controllers\Http;
+
 class matakuliahController extends Controller
 {
-    //
+    private $client;
+    
+    function __construct() {
+        $token= app()->call('App\Http\Controllers\tokenController@index');
+        $this->token = $token;
+        $http = new Http($token);
+        $this->client = $http->client;
+    }  
+
     public function index()
     {
         $token = app()->call('App\Http\Controllers\tokenController@index');
-        $base_url = env('BASE_URL');
         $data = Dashboard::limit(1)->first();
         $tha = $data->tha;
         $semester = $data->semester;
         try {
-            $client = new Client();
-            $response = $client->request('GET', $base_url . 'GetListMatakuliahByTahunAkademik', [
+            $response = $this->client->get('GetListMatakuliahByTahunAkademik', [
                 'query' => [
-                    'token' => $token,
                     'tha' => $tha,
                     'semester' => $semester,
-                ],
+                ]
             ]);
             $statusCode = $response->getStatusCode();
             $body = $response->getBody()->getContents();
@@ -42,10 +47,8 @@ class matakuliahController extends Controller
         $tha = $data->tha;
         $semester = $data->semester;
         try {
-            $client = new Client();
-            $response = $client->request('GET', $base_url . 'GetListMatakuliahByTahunAkademik', [
+            $response = $this->client->get('GetListMatakuliahByTahunAkademik', [
                 'query' => [
-                    'token' => $token,
                     'tha' => $tha,
                     'semester' => $semester,
                 ],
