@@ -4,23 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Dashboard;
 use Excel;
-use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Http;
 
 class presensiController extends Controller
 {
-    //
+    
+    private $client;
+    
+    function __construct() {
+        $token= app()->call('App\Http\Controllers\tokenController@index');
+        $this->token = $token;
+        $http = new Http($token);
+        $this->client = $http->client;
+    }  
+
     public function destroy($id)
     {
-        $token = app()->call('App\Http\Controllers\tokenController@index');
-        $base_url = env('BASE_URL');
         $data = array(
             "id" => $id,
         );
         try {
-            $client = new Client();
-            $response = $client->post($base_url . 'DeleteTanggalPresensi?token=' . $token, [
+            $response = $this->client->post('DeleteTanggalPresensi', [
                 'json' => $data,
             ]);
             $body = $response->getBody()->getContents();
@@ -30,11 +36,12 @@ class presensiController extends Controller
 
         return redirect()->route('presensi')->with('alert-success', 'Berhasil Menghapus data!');
     }
+    public function edit($id, $tanggal_mulai, $tanggal_selesai, $is_aktif)
+    {
+        return view('presensi.form-update', compact('id', 'tanggal_mulai', 'tanggal_selesai', 'is_aktif'));
+    }
     public function store(Request $request)
     {
-
-        $token = app()->call('App\Http\Controllers\tokenController@index');
-        $base_url = env('BASE_URL');
         $data = array(
             "thn_ajaran" => $request->thn_ajaran,
             "semester" => (int) $request->semester,
@@ -44,8 +51,7 @@ class presensiController extends Controller
             "is_aktif" => (int) $request->is_aktif,
         );
         try {
-            $client = new Client();
-            $response = $client->post($base_url . 'SaveTanggalPresensi?token=' . $token, [
+            $response = $this->client->post('SaveTanggalPresensi', [
                 'json' => $data,
             ]);
             $body = $response->getBody()->getContents();
@@ -57,15 +63,32 @@ class presensiController extends Controller
 
         return redirect()->route('presensi')->with('alert-success', 'Berhasil Menambah Data!');
     }
+    public function update(Request $request)
+    {
+        $data = array(
+            "id" => $request->id,
+            "tanggal_mulai" => $request->tgl_awal,
+            "tanggal_selesai" => $request->tgl_selesai,
+            "is_aktif" => (int) $request->is_aktif,
+        );
+        try {
+            $response = $this->client->post('UpdateTanggalPresensi' , [
+                'json' => $data,
+            ]);
+            $body = $response->getBody()->getContents();
+        } catch (ClientException $e) {
+            echo $e;
+            return redirect()->route('presensi')->with('alert-danger', 'Gagal Menambah Data!');
+
+        }
+
+        return redirect()->route('presensi')->with('alert-success', 'Berhasil Merubah Data!');
+    }
     public function index()
     {
         $jurusan = app()->call('App\Http\Controllers\jurusanController@get_jurusan');
         $tanggal = $this->get_tanggal_presensi();
         return view('presensi.index', compact('jurusan', 'tanggal'));
-    }
-    public function update($id, $tgl_mulai, $tgl_selesai, $is_aktif)
-    {
-        return view('presensi.update', compact('id', 'tgl_mulai', 'tgl_selesai', 'is_aktif'));
     }
     public function create()
     {
@@ -76,24 +99,25 @@ class presensiController extends Controller
         $x = Dashboard::limit(1)->first();
         $tha = $x->tha;
         $semester = $x->semester;
-        $token = app()->call('App\Http\Controllers\tokenController@index');
-        $base_url = env('BASE_URL');
         $data = Dashboard::limit(1)->first();
         $tha = $data->tha;
         $semester = $data->semester;
         try {
-            $client = new Client();
-            $response = $client->request('GET', $base_url . 'GetListTanggalPresensi', [
+            $response = $this->client->get('GetListTanggalPresensi', [
                 'query' => [
-                    'token' => $token,
                     'tha' => $tha,
                     'semester' => $semester,
                 ],
+                'http_errors' => false,
             ]);
             $statusCode = $response->getStatusCode();
-            $body = $response->getBody()->getContents();
-            $datas = json_decode($body, true);
-            return $datas;
+            if ($statusCode >= 400) {
+                return [];
+            } else {
+                $body = $response->getBody()->getContents();
+                $datas = json_decode($body, true);
+                return $datas;
+            }
         } catch (ClientException $e) {
             return redirect()->route('presensi')->with('alert-danger-presensi', 'Gagal Mendapatkan Data, Data yang di grab tidak ada !');
         }
@@ -117,17 +141,13 @@ class presensiController extends Controller
 
     public function get_presensi($kode_jurusan, $jenis)
     {
-        $token = app()->call('App\Http\Controllers\tokenController@index');
-        $base_url = env('BASE_URL');
         $data = Dashboard::limit(1)->first();
         $tha = $data->tha;
         $semester = $data->semester;
         $kode_jurusan = $kode_jurusan;
         $_jenis = $jenis;
-        $client = new Client();
-        $response = $client->request('GET', $base_url . 'GetListPresensiAsistenByJurusan', [
+        $response = $this->client->request('GetListPresensiAsistenByJurusan', [
             'query' => [
-                'token' => $token,
                 'tha' => $tha,
                 'semester' => $semester,
                 'kode_jurusan' => $kode_jurusan,

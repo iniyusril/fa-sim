@@ -15,10 +15,10 @@ class tokenController extends Controller
         $pass = md5($data->password);
         $base_url = env('BASE_URL');
         $client = new Client();
-        $response = $client->request('GET', $base_url . 'GetToken?npm=' . $nim . '&password=' . $pass);
+        $response = $client->request('GET', $base_url . 'api/auth?npm=' . $nim . '&password=' . $pass);
         $statusCode = $response->getStatusCode();
         $body = $response->getBody()->getContents();
         $result = json_decode($body);
-        return $result->Token;
+        return $result->token;
     }
 }

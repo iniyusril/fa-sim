@@ -125,7 +125,11 @@
     <script src="{{asset('vendors/pace-progress/js/pace.min.js')}}"></script>
     <script src="{{asset('vendors/perfect-scrollbar/js/perfect-scrollbar.min.js')}}"></script>
     <script src="{{asset('vendors/@coreui/coreui/js/coreui.min.js')}}"></script>
-    <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+    <script src="{{asset('vendors/bootstrap/js/table.js')}}"></script>
+
+    <!-- <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+   -->
+
 <!-- App scripts -->
 @stack('scripts')
   </body>
