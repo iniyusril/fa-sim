@@ -35,7 +35,6 @@ class jurusanController extends Controller
     }
     public function index()
     {
-        $token = app()->call('App\Http\Controllers\tokenController@index');
         $response = $this->client->get('GetListJurusan');
         $statusCode = $response->getStatusCode();
         $body = $response->getBody()->getContents();
@@ -44,7 +43,6 @@ class jurusanController extends Controller
     }
     public function get_jurusan()
     {
-        $token = app()->call('App\Http\Controllers\tokenController@index');
         $response = $this->client->get('GetListJurusan');
         $statusCode = $response->getStatusCode();
         $body = $response->getBody()->getContents();

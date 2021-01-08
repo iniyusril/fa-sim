@@ -19,7 +19,6 @@ class matakuliahController extends Controller
 
     public function index()
     {
-        $token = app()->call('App\Http\Controllers\tokenController@index');
         $data = Dashboard::limit(1)->first();
         $tha = $data->tha;
         $semester = $data->semester;
@@ -41,8 +40,6 @@ class matakuliahController extends Controller
     }
     public function get_matakuliah()
     {
-        $token = app()->call('App\Http\Controllers\tokenController@index');
-        $base_url = env('BASE_URL');
         $data = Dashboard::limit(1)->first();
         $tha = $data->tha;
         $semester = $data->semester;

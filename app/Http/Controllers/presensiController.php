@@ -99,7 +99,6 @@ class presensiController extends Controller
         $x = Dashboard::limit(1)->first();
         $tha = $x->tha;
         $semester = $x->semester;
-        $token = app()->call('App\Http\Controllers\tokenController@index');
         $data = Dashboard::limit(1)->first();
         $tha = $data->tha;
         $semester = $data->semester;
