@@ -104,7 +104,7 @@
 <script>
 $(document).ready(function() {
     $('#table-presensi').DataTable({
-      "pageLength": 25
+      "pageLength": 50
     });
 } );
 </script>

@@ -48,6 +48,7 @@ class inputDataController extends Controller
         if (($handle = fopen($file, 'r')) === false) {
             die('Error opening file');
         }
+		//dd($data);
         
         $headers = fgetcsv($handle, 1024, ',');
         array_push($headers,'thn_ajaran','semester');

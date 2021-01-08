@@ -7,6 +7,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\Request;
 use Excel;
+
 class asistenController extends Controller
 {
     //
@@ -32,6 +33,8 @@ class asistenController extends Controller
         } catch (ClientException $e) {
             $datas = [];
         }
+        // $count = count($datas);
+        // dd($count);
         return view('asisten.index', compact('datas'));
     }
     public function get_asisten()
@@ -73,6 +76,5 @@ class asistenController extends Controller
         } catch (ClientException $e) {
             return redirect()->route('presensi')->with('alert-danger-presensi', 'Gagal Mendapatkan Data, Data yang di grab tidak ada !');
         }
-
     }
 }
